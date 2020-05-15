@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.codedog.dao.UserDao">
+
+
+    <select id="findUser" resultType="xyz.codedog.po.User">
+        select * from sys_user where user_code = #{usercode} and user_password = #{password} and user_state = '1'
+    </select>
+</mapper>
