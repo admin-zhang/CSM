@@ -1,5 +1,8 @@
 package xyz.codedog.common.util;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
@@ -24,4 +27,25 @@ public class NavigationTag extends TagSupport {
      * 显示页码数量
      */
     private int number = 5;
+
+    @Override
+    public int doStartTag() throws JspException {
+        JspWriter writer = pageContext.getOut();
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        Page page = (Page) request.getAttribute(bean);
+        if (page == null) {
+            return SKIP_BODY;
+        }
+        url = resolverUrl(url, pageContext);
+        try {
+            int pageCount = page.getTotal() / page.getSize();
+            if (page.getTotal() % page.getSize() > 0) {
+                pageCount++;
+            }
+            writer.print("<nav><ul class=\"pagination\">");
+            String homeUrl = append(url, "page", 1);
+            String backUrl = append(preUrl, "rows", page.getSize());
+        }
+        return super.doStartTag();
+    }
 }
