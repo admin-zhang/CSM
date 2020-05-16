@@ -43,8 +43,10 @@ public class NavigationTag extends TagSupport {
                 pageCount++;
             }
             writer.print("<nav><ul class=\"pagination\">");
-            String homeUrl = append(url, "page", 1);
-            String backUrl = append(preUrl, "rows", page.getSize());
+           /* String homeUrl = append(url, "page", 1);
+            String backUrl = append(preUrl, "rows", page.getSize());*/
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return super.doStartTag();
     }
